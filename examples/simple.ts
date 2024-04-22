@@ -1,4 +1,4 @@
-import { Llama } from "./libllama.ts";
+import { Llama } from "../libllama.ts";
 import process from "node:process";
 
 const engine = new Llama({

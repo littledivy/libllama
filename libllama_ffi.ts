@@ -308,7 +308,7 @@ export interface PredictOptions {
   ropeFreqScale?: number;
   negativePromptScale?: number;
   negativePrompt?: string;
-};
+}
 
 const defaultPredictOptions: PredictOptions = {
   seed: -1,
@@ -420,6 +420,7 @@ export function predict(
   );
 
   const out = new Uint8Array(opts.tokens || 99999999);
+  console.log("Prompt: ", text);
   const result = C.llama_predict(
     params,
     model,
