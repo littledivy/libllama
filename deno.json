@@ -1,6 +1,6 @@
 {
   "name": "@divy/libllama",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "exports": "./libllama.ts",
   "unstable": ["ffi"],
   "exclude": ["llama.cpp"]
