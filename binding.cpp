@@ -1,3 +1,5 @@
+// Adapted from go-llama
+
 #include "common.h"
 #include "llama.h"
 

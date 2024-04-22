@@ -1,4 +1,9 @@
-import { Llama } from "./libllama.ts";
+# libllama
+
+Run `llama.cpp` from Deno
+
+```typescript
+import { Llama } from "jsr:@divy/libllama";
 import process from "node:process";
 
 const engine = new Llama({
@@ -7,4 +12,4 @@ const engine = new Llama({
 
 const text = process.argv[3];
 engine.predict(text);
-
+```

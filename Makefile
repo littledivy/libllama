@@ -11,4 +11,4 @@ build-llama:
 		make
 
 clean:
-	rm -f c2ffi_output.json
+	rm -f c2ffi_output.json *.log
