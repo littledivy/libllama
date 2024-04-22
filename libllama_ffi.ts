@@ -270,7 +270,7 @@ export function load(modal: string, options?: ModelOptions): Deno.PointerValue {
   return result;
 }
 
-export type PredictOptions = {
+export interface PredictOptions {
   seed?: number;
   threads?: number;
   tokens?: number;
