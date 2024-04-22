@@ -118,7 +118,7 @@ static std::vector<llama_token> * g_input_tokens;
 static std::ostringstream       * g_output_ss;
 static std::vector<llama_token> * g_output_tokens;
 
-int llama_predict(void* params_ptr, void* state_pr, char* result, bool debug) {
+int llama_predict(void* params_ptr, void* state_pr, char* result, bool debug, unsigned char (*tokenCallback)(void*, char*)) {
     gpt_params* params_p = (gpt_params*) params_ptr;
     llama_binding_state* state = (llama_binding_state*) state_pr;
     llama_context* ctx = state->ctx;
@@ -562,7 +562,7 @@ end:
 // this is a bit of a hack now - ideally this should be in the predict function
 // and be transparent to the caller, however this now maps 1:1 (mostly) the upstream implementation
 // Note: both model have to be loaded with perplexity "true" to enable all logits
-int speculative_sampling(void* params_ptr, void* target_model, void* draft_model, char* result, bool debug) {
+int speculative_sampling(void* params_ptr, void* target_model, void* draft_model, char* result, bool debug, unsigned char (*tokenCallback)(void*, char*)) {
 
     gpt_params* params_p = (gpt_params*) params_ptr;
     llama_binding_state* target_model_state = (llama_binding_state*) target_model;

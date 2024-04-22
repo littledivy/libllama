@@ -183,6 +183,7 @@ const { symbols: C } = Deno.dlopen(
         /* void* state_pr */ "pointer",
         /* char* result */ "buffer",
         /* bool debug */ "bool",
+        /* void* token_callback */ "pointer",
       ],
       result: "i32",
     },
@@ -237,7 +238,7 @@ const defaultOptions: ModelOptions = {
   perplexity: false,
 };
 
-export function load(modal: string, options?: ModelOptions) {
+export function load(modal: string, options?: ModelOptions): Deno.PointerValue {
   const modelPath = cstr(modal);
   const opts: ModelOptions = {
     ...defaultOptions,
@@ -336,7 +337,10 @@ const defaultPredictOptions: PredictOptions = {
   debugMode: false,
   stopPrompts: [],
 
-  tokenCallback: (_) => true,
+  tokenCallback: (token) => {
+    console.log(token);
+    return true;
+  },
 
   pathPromptCache: "",
   mlock: false,
@@ -358,7 +362,7 @@ export function predict(
   model: Deno.PointerValue,
   text: string,
   predictOptions?: PredictOptions,
-) {
+): void {
   const prompt = cstr(text);
   const opts = {
     ...defaultPredictOptions,
@@ -367,6 +371,13 @@ export function predict(
 
   const pass = Deno.UnsafePointer.value(Deno.UnsafePointer.of(cstr("human:")));
   const passPtr = new BigInt64Array([BigInt(pass)]);
+
+  const tokenCallback = new Deno.UnsafeCallback({
+    parameters: ["pointer", "pointer"],
+    result: "bool",
+  }, (_, str: Deno.PointerValue) => {
+    return opts.tokenCallback!(Deno.UnsafePointerView.getCString(str!));
+  });
 
   const params = C.llama_allocate_params(
     prompt,
@@ -414,6 +425,7 @@ export function predict(
     model,
     out,
     opts.debugMode!,
+    tokenCallback.pointer,
   );
 
   if (result != 0) {
@@ -421,10 +433,5 @@ export function predict(
     return;
   }
 
-  const decoder = new TextDecoder();
-  const output = decoder.decode(out);
-
   C.llama_free_params(params);
-
-  return output;
 }

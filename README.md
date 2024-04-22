@@ -11,7 +11,12 @@ const engine = new Llama({
 });
 
 const text = process.argv[3];
-engine.predict(text);
+engine.predict(text, {
+  tokenCallback: (token) => {
+    process.stdout.write(token);
+    return true;
+  },
+});
 ```
 
 ## Building

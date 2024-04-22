@@ -24,7 +24,18 @@ export class Llama {
     this.model = load(options.model, options);
   }
 
-  /** Start completion */
+  /**
+   * Start completion prediction.
+   *
+   * ```ts
+   * llama.predict("What is the meaning of life?", {
+   *   tokenCallback: (token) => {
+   *     console.log(token);
+   *     return true;
+   *   },
+   * });
+   * ```
+   */
   predict(text: string, options?: PredictOptions) {
     predict(this.model, text, options);
   }
