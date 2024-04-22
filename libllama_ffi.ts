@@ -1,6 +1,6 @@
 const { symbols: C } = Deno.dlopen(
   "./build/llama-deno.so",
-{
+  {
     load_model: {
       parameters: [
         /* const *char fname */ "buffer",
@@ -100,7 +100,7 @@ const { symbols: C } = Deno.dlopen(
         "i32", // int repeat_last_n
         "bool", // bool ignore_eos
         "bool", // bool memory_f16
-          
+
         "i32", // int n_batch
         "i32", // int n_keep
         "buffer", // const char** antiprompt
@@ -179,7 +179,7 @@ const { symbols: C } = Deno.dlopen(
       ],
       result: "i32",
     },
-  }
+  },
 );
 
 const enc = new TextEncoder();
@@ -204,7 +204,7 @@ export type ModelOptions = {
   loraBase?: string;
   loraAdapter?: string;
   perplexity?: boolean;
-}
+};
 
 const defaultOptions: ModelOptions = {
   contextSize: 128,
@@ -225,7 +225,7 @@ const defaultOptions: ModelOptions = {
   loraBase: "",
   loraAdapter: "",
   perplexity: false,
-}
+};
 
 export function load(modal: string, options?: ModelOptions) {
   const modelPath = cstr(modal);
@@ -233,7 +233,7 @@ export function load(modal: string, options?: ModelOptions) {
     ...defaultOptions,
     ...options,
   };
-  
+
   const result = C.load_model(
     modelPath,
     opts.contextSize!,
@@ -297,7 +297,7 @@ export type PredictOptions = {
   ropeFreqScale?: number;
   negativePromptScale?: number;
   negativePrompt?: string;
-}
+};
 
 const defaultPredictOptions: PredictOptions = {
   seed: -1,
@@ -342,9 +342,13 @@ const defaultPredictOptions: PredictOptions = {
 
   negativePromptScale: 0.0,
   negativePrompt: "",
-}
+};
 
-export function predict(model: Deno.PointerValue, text: string, predictOptions?: PredictOptions) {
+export function predict(
+  model: Deno.PointerValue,
+  text: string,
+  predictOptions?: PredictOptions,
+) {
   const prompt = cstr(text);
   const opts = {
     ...defaultPredictOptions,

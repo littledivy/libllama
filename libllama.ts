@@ -3,7 +3,7 @@ import type { ModelOptions, PredictOptions } from "./libllama_ffi.ts";
 
 type LlamaOptions = ModelOptions & {
   model: string;
-}
+};
 
 export class Llama {
   model: Deno.PointerValue;
@@ -16,4 +16,3 @@ export class Llama {
     predict(this.model, text, options);
   }
 }
-
