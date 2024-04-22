@@ -1,5 +1,12 @@
+const libraryPath = Deno.env.get("LIBLLAMA_PATH") || "./build/llama-deno.so";
+if (Deno.env.get("LIBLLAMA_PATH") === undefined) {
+  console.warn(
+    "LIBLLAMA_PATH not set, using default path: ./build/llama-deno.so",
+  );
+}
+
 const { symbols: C } = Deno.dlopen(
-  "./build/llama-deno.so",
+  libraryPath,
   {
     load_model: {
       parameters: [
