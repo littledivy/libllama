@@ -192,9 +192,12 @@ const { symbols: C } = Deno.dlopen(
 const enc = new TextEncoder();
 const cstr = (str: string) => enc.encode(`${str}\0`);
 
-export type ModelOptions = {
+export interface ModelOptions {
+  /** Text context size */
   contextSize?: number;
+  /** Random seed, -1 for random */
   seed?: number;
+  /** Prompt processing batch size */
   nBatch?: number;
   f16Memory?: boolean;
   mlock?: boolean;
@@ -211,7 +214,7 @@ export type ModelOptions = {
   loraBase?: string;
   loraAdapter?: string;
   perplexity?: boolean;
-};
+}
 
 const defaultOptions: ModelOptions = {
   contextSize: 128,
