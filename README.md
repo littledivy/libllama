@@ -28,7 +28,10 @@ make
 
 Run the example:
 ```
-deno run --allow-ffi example.ts ./models/llama-2-7b-chat.Q2_K.gguf "What is the meaning of life?"
+export LIBLLAMA_PATH=../build/libllama.dylib
+deno run --allow-ffi example.ts \
+    ./models/llama-2-7b-chat.Q2_K.gguf \
+    "What is the meaning of life?"
 ```
 
 ## License
