@@ -1,0 +1,30 @@
+{
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "jsr:@denosaurs/byte-type": "jsr:@denosaurs/byte-type@0.4.0",
+      "jsr:@std/assert@^0.220.1": "jsr:@std/assert@0.220.1",
+      "jsr:@std/bytes@^0.220.1": "jsr:@std/bytes@0.220.1",
+      "jsr:@std/io": "jsr:@std/io@0.220.1"
+    },
+    "jsr": {
+      "@denosaurs/byte-type@0.4.0": {
+        "integrity": "9d6816f4bc3f2dec579007fdaf16688cfa8f070e69f12542997d07c877a1e5c7"
+      },
+      "@std/assert@0.220.1": {
+        "integrity": "88710d54f3afdd7a5761e7805abba1f56cd14e4b212feffeb3e73a9f77482425"
+      },
+      "@std/bytes@0.220.1": {
+        "integrity": "e522cdc7c152cfc8a09bd618618cbc710dcf57003ab6fab3a6c37ff4c88aa3db"
+      },
+      "@std/io@0.220.1": {
+        "integrity": "c14c3237cfc73dd8086ac82673212939f8c49f0803d6da68eea32249caffdd67",
+        "dependencies": [
+          "jsr:@std/assert@^0.220.1",
+          "jsr:@std/bytes@^0.220.1"
+        ]
+      }
+    }
+  },
+  "remote": {}
+}
